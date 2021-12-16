@@ -22,7 +22,7 @@ const Search = (props) => {
         <InputBase sx={{ ml: 1, flex: 1 }} placeholder="Search" />
       </Paper>
       <Paper
-        sx={{ border: "1px solid grey", "border-left": "0px" }}
+        sx={{ border: "1px solid grey", "borderLeft": "0px" }}
         elevation={0}
       >
         <IconButton onClick={(event) => {props.handleSearch(event.target.value)} }>

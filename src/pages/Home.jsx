@@ -1,5 +1,5 @@
 import React from 'react';
-import { useContext } from 'react';
+import { useContext, useEffect } from 'react';
 
 import Panel from '../components/Panel';
 import headerOptionsContext from '../utils/HeaderOptionsContext';
@@ -7,7 +7,9 @@ import Dashboard from '../components/Dashboard';
 
 const Home = () => {
 	const [headerOptions, setHeaderOptions] = useContext(headerOptionsContext);
-	setHeaderOptions(true);
+	useEffect(() => {
+		setHeaderOptions(true);
+	}, []);
 	console.log(headerOptions);
 	
 	return (

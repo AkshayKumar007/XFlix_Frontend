@@ -2,7 +2,7 @@ import React from 'react';
 import { useState } from 'react';
 import { Chip, Stack, Select, MenuItem, Button, Container} from '@mui/material'; //
 import SwapVertIcon from '@mui/icons-material/SwapVert';
-
+// import { config } from "../App";
 
 const Panel = () => {
 
@@ -65,7 +65,7 @@ const Panel = () => {
 					{/* Test */}
 					<Button onClick={() => { setOpen(!open); }} >
 						<Select
-							sx={{"border-radius": "100px"}}
+							sx={{"borderRadius": "100px"}}
 							size={"small"}
 							onClick={() => setOpen(!open)}
 							value={sortOption}
@@ -100,3 +100,50 @@ const Panel = () => {
 }
 
 export default Panel;
+
+	// const handleGenreClick = (genre) => {
+	// 	let newList = genreGroup.map((item) => {
+	// 		if(genre === item.label) {
+	// 			let newColor = item.color === 'primary'? 'success' : 'primary';
+	// 			return Object.assign({}, ...item, {color: newColor});
+	// 		} else {
+	// 			return Object.assign({}, ...item);
+	// 		}
+	// 	});
+	// 	setGenreGroup(newList);
+	// };
+
+	// const handleAgeClick = (age) => {
+	// 	let newList = ageGroup.map((item) => {
+	// 		if(age === item.label) {
+	// 			let newColor = item.color === 'primary'? 'success' : 'primary';
+	// 			return Object.assign({}, ...item, {color: newColor});
+	// 		} else {
+	// 			return Object.assign({}, ...item);
+	// 		}
+	// 	});
+	// 	setAgeGroup(newList);
+	// };
+
+	// <Chip label={sortOption} onClick={() => { setOpen(!open); }} > {/* sortOption */}
+	// 					<Select
+	// 						onClick={() => setOpen(!open)}
+	// 						value={sortOption}
+	// 						onChange={handleChange}
+	// 						open={open}
+	// 					>
+	// 						{/* {criteria.map((option, index) => {
+	// 							return (
+	// 								<MenuItem key={index} value={option.label}>
+	// 									{option.label}
+	// 								</MenuItem>
+	// 							);
+	// 						})} */}
+	// 						<MenuItem value={criteria[0].label}>
+	// 							{criteria[0].label}
+	// 						</MenuItem>
+	// 						<MenuItem value={criteria[1].label}>
+	// 							{criteria[1].label}
+	// 						</MenuItem>
+	// 					</Select>
+	// 				</Chip>
