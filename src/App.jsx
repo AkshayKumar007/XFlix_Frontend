@@ -4,7 +4,7 @@ import { Route, BrowserRouter as Router, Switch } from 'react-router-dom';
 
 import Layout from './components/Layout';
 import Home from './pages/Home';
-import headerOptionsContext from './utilities/HeaderOptionsContext';
+import headerOptionsContext from './utils/HeaderOptionsContext';
 import './App.css';
 
 function App() {

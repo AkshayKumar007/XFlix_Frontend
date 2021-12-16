@@ -2,7 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import Search from './Search';
 import { useContext } from 'react';
-import headerOptionsContext from '../utilities/HeaderOptionsContext';
+import headerOptionsContext from '../utils/HeaderOptionsContext';
 import FileUploadIcon from '@mui/icons-material/FileUpload';
 import { AppBar, CssBaseline, Toolbar, Box, Button} from '@mui/material';
 

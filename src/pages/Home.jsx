@@ -1,6 +1,9 @@
 import React from 'react';
 import { useContext } from 'react';
-import headerOptionsContext from '../utilities/HeaderOptionsContext';
+
+import Panel from '../components/Panel';
+import headerOptionsContext from '../utils/HeaderOptionsContext';
+import Dashboard from '../components/Dashboard';
 
 const Home = () => {
 	const [headerOptions, setHeaderOptions] = useContext(headerOptionsContext);
@@ -8,9 +11,10 @@ const Home = () => {
 	console.log(headerOptions);
 	
 	return (
-		<p>
-			Lorem ipsum dolor sit amet consectetur, adipisicing elit. Maiores in dolorum dicta magni magnam sapiente laborum nam debitis.
-		</p>
+		<>
+			<Panel />
+			<Dashboard></Dashboard>
+		</>
 	);
 }
 
