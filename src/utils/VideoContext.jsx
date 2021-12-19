@@ -1,5 +1,5 @@
-import {createContext} from 'react';
+import { createContext } from 'react';
 
-const VideoContext = createContext([[], function() {}]);
+const VideoContext = createContext([[], function () {}]);
 
 export default VideoContext;

@@ -1,23 +1,25 @@
 import React from 'react';
-import { useContext, useEffect } from 'react';
+import { useState, useContext, useEffect } from 'react';
 
 import Panel from '../components/Panel';
 import headerOptionsContext from '../utils/HeaderOptionsContext';
+import VideoContext from '../utils/VideoContext';
 import Dashboard from '../components/Dashboard';
 
-const Home = () => {
-	const [headerOptions, setHeaderOptions] = useContext(headerOptionsContext);
-	useEffect(() => {
-		setHeaderOptions(true);
-	}, []);
-	console.log(headerOptions);
-	
-	return (
-		<>
-			<Panel />
-			<Dashboard></Dashboard>
-		</>
-	);
-}
+const Home = ({ allVideos }) => {
+  const [headerOptions, setHeaderOptions] = useContext(headerOptionsContext);
+  useEffect(() => {
+    setHeaderOptions(true);
+  }, []);
+
+  const [localVideos, setLocalVideos] = useState(allVideos);
+
+  return (
+    <VideoContext.Provider value={[localVideos, setLocalVideos]}>
+      <Panel allVideos={allVideos} />
+      <Dashboard></Dashboard>
+    </VideoContext.Provider>
+  );
+};
 
 export default Home;

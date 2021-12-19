@@ -1,9 +1,12 @@
 import React from 'react';
+import { useContext } from 'react';
+
+import VideoContext from '../utils/VideoContext';
 
 const Dashboard = () => {
-  return (
-    <p>Yo</p>
-  );
+  const [localVideos, setLocalVideos] = useContext(VideoContext);
+  
+  return <p>Yo</p>;
 };
 
 export default Dashboard;
