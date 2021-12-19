@@ -66,7 +66,6 @@ const updateVideoList = (videos, genreFilter, ageFilter) => {
 // Component
 
 const Panel = ({ allVideos }) => {
-
   const criteria = [
     { label: 'Release Date', key: 0 },
     { label: 'View Count', key: 1 },
@@ -100,9 +99,17 @@ const Panel = ({ allVideos }) => {
 
   const handleFilterClick = (group, label) => {
     let newList = [];
-    if (label === 'All Genre' || label === 'Any age group') {
+    if (group === genreGroup && label === 'All Genre') {
       newList = group.map((item) => {
-        if (item.label !== 'All Genre' || item.label !== 'Any age group') {
+        if (item.label !== 'All Genre') {
+          return Object.assign({}, item, { color: 'success' });
+        } else {
+          return Object.assign({}, item, { color: 'primary' });
+        }
+      });
+    } else if (group === ageGroup && label === 'Any age group') {
+      newList = group.map((item) => {
+        if (item.label !== 'Any age group') {
           return Object.assign({}, item, { color: 'success' });
         } else {
           return Object.assign({}, item, { color: 'primary' });
@@ -206,3 +213,20 @@ const Panel = ({ allVideos }) => {
 };
 
 export default Panel;
+
+// if (group === genreGroup && label === 'All Genre') {
+//   newList = group.map((item) => {
+//     if (item.label !== 'All Genre') {
+//       return Object.assign({}, item, { color: 'success' });
+//     } else {
+//       return Object.assign({}, item, { color: 'primary' });
+//     }
+//   });
+// } else if (group === ageGroup && label === 'Any age group') {
+//   newList = group.map((item) => {
+//     if (item.label !== 'Any age group') {
+//       return Object.assign({}, item, { color: 'success' });
+//     } else {
+//       return Object.assign({}, item, { color: 'primary' });
+//     }
+//   });

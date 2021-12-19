@@ -9,9 +9,11 @@ import { AppBar, CssBaseline, Toolbar, Box, Button } from '@mui/material';
 const Header = () => {
   const [headerOptions, setHeaderOptions] = useContext(headerOptionsContext);
 
-  const handleSearch = (event) => {
-  
-  };
+  const handleSearch = (event) => {};
+
+  const handleUploadClick = (event) => {};
+
+  let modalDiv = document.getElementById('modal');
 
   return (
     <div className="header">
@@ -22,7 +24,7 @@ const Header = () => {
               {/* Xflix icon */}
               <Link to="/">
                 <Box
-                  sx={{ height: 30 }}
+                  sx={{ height: 25 }}
                   component="img"
                   alt="XFlix"
                   src="/XFlix-logo.png"
@@ -34,7 +36,11 @@ const Header = () => {
 
               {/* Upload Button */}
 
-              <Button variant="contained" endIcon={<FileUploadIcon />}>
+              <Button
+                onClick={handleUploadClick}
+                variant="contained"
+                endIcon={<FileUploadIcon />}
+              >
                 Upload
               </Button>
             </CssBaseline>
