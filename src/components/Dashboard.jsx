@@ -13,10 +13,11 @@ const Dashboard = () => {
     <Box sx={{ flexGrow: 1 }}>
       <Grid
         container
-        columns={{ xs: 12, sm: 12, md: 12 }}
+        sx={{px: 10, my:2}}
+        columns={{ xs: 12, sm: 12, md: 12, lg: 12 }}
       >
         {localVideos.map((item) => (
-          <Grid item xs={12} sm={12} md={3} key={item._id}>
+          <Grid item xs={12} sm={6} md={3} key={item._id}>
             <PreviewCard
               previewImage={item.previewImage}
               releaseDate={item.releaseDate}

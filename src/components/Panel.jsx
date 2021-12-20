@@ -121,6 +121,8 @@ const Panel = ({ allVideos }) => {
           return Object.assign({}, item, { color: 'success' });
         } else if (item.label === label) {
           return Object.assign({}, item, { color: 'primary' });
+        } else if(group === ageGroup && item.label !== label ) {
+          return Object.assign({}, item, { color: 'success' });
         } else {
           return Object.assign({}, item);
         }
@@ -154,7 +156,7 @@ const Panel = ({ allVideos }) => {
   };
 
   return (
-    <Container spacing={2}>
+    <Container sx={{my: 2}} spacing={2}>
       <Stack spacing={2}>
         <Stack
           direction="row"
@@ -213,20 +215,3 @@ const Panel = ({ allVideos }) => {
 };
 
 export default Panel;
-
-// if (group === genreGroup && label === 'All Genre') {
-//   newList = group.map((item) => {
-//     if (item.label !== 'All Genre') {
-//       return Object.assign({}, item, { color: 'success' });
-//     } else {
-//       return Object.assign({}, item, { color: 'primary' });
-//     }
-//   });
-// } else if (group === ageGroup && label === 'Any age group') {
-//   newList = group.map((item) => {
-//     if (item.label !== 'Any age group') {
-//       return Object.assign({}, item, { color: 'success' });
-//     } else {
-//       return Object.assign({}, item, { color: 'primary' });
-//     }
-//   });

@@ -5,11 +5,10 @@ import { formatDistanceToNow } from 'date-fns';
 
 const PreviewCard = ({ previewImage, title, releaseDate }) => {
   return (
-    <Card sx={{ maxWidth: 414 }} elevation={0}>
+    <Card sx={{mr: 2, my: 2}} elevation={0}>
       <CardActionArea>
         <CardMedia
           component="img"
-          height="230"
           image={previewImage}
           alt={title}
         />
