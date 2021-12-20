@@ -6,6 +6,7 @@ import Layout from './components/Layout';
 import Home from './pages/Home';
 import Video from './pages/Video';
 import headerOptionsContext from './utils/HeaderOptionsContext';
+import VideoContext from './utils/VideoContext';
 import './App.css';
 
 export const config = {
@@ -41,26 +42,34 @@ const App = () => {
     }
   }, []);
 
+  const [localVideos, setLocalVideos] = useState(videos);
+
+  useEffect(() => {
+    setLocalVideos(videos);
+  }, [videos]);
+
   return (
     <div className="App">
       <Router>
         <headerOptionsContext.Provider
           value={[headerOptions, setHeaderOptions]}
         >
-          <Layout>
-            <Switch>
-              <Route
-                exact
-                path="/"
-                render={() => <Home allVideos={videos} />}
-              />
-              <Route
-                exact
-                path="/video"
-                render={() => <Video allVideos={videos} />}
-              />
-            </Switch>
-          </Layout>
+          <VideoContext.Provider value={[localVideos, setLocalVideos]}>
+            <Layout allVideos={videos}>
+              <Switch>
+                <Route
+                  exact
+                  path="/"
+                  render={() => <Home allVideos={videos} />}
+                />
+                <Route
+                  exact
+                  path="/video"
+                  render={() => <Video allVideos={videos} />}
+                />
+              </Switch>
+            </Layout>
+          </VideoContext.Provider>
         </headerOptionsContext.Provider>
       </Router>
     </div>

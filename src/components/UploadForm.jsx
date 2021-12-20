@@ -12,56 +12,60 @@ import {
   MenuItem,
   InputLabel,
 } from '@mui/material';
-import { DesktopDatePicker } from '@mui/lab';
+import AdapterDateFns from '@date-io/date-fns';
+import { DesktopDatePicker, LocalizationProvider } from '@mui/lab';
 
-const UploadForm = () => {
+const UploadForm = ({ visibility, setVisibility }) => {
   const [value, setValue] = React.useState(new Date());
 
-
-  // this and similar methods to handle change in input  
+  // this and similar methods to handle change in input
   const handleChange = (newValue) => {
     setValue(newValue);
   };
 
   // method to toggle visibility of form
-  const handleClickOpen = () => {};
+  const handleClickSubmit = () => {};
 
   // method to submit the form
-  const handleClose = () => {};
+  const handleClose = () => {
+    setVisibility(false);
+  };
 
   return (
-    <div>
-      <Dialog
-        components="form"
-        oValidate
-        autoComplete="off"
-        open={open}
-        onClose={handleClose}
-      >
+    <Dialog
+      components="form"
+      autoComplete="off"
+      open={visibility}
+      onClose={handleClose}
+    >
+      <form noValidate autoComplete="off">
         <DialogTitle>Upload Video</DialogTitle>
         <DialogContent>
           <TextField
+            sx={{ mt: 2 }}
             id="name"
             label="Email Address"
             type="email"
-            defaultValue="Default Value"
+            fullWidth
             helperText="Some important text"
           />
           <TextField
+            sx={{ mt: 2.5 }}
             id="name"
             label="Email Address"
             type="email"
-            defaultValue="Default Value"
+            fullWidth
             helperText="Some important text"
           />
           <TextField
+            sx={{ mt: 2.5 }}
             id="name"
             label="Email Address"
             type="email"
-            defaultValue="Default Value"
+            fullWidth
             helperText="Some important text"
           />
-          <FormControl sx={{ m: 1, minWidth: 120 }}>
+          <FormControl fullWidth sx={{ mt: 2.5 }}>
             <InputLabel id="demo-simple-select-helper-label">Age</InputLabel>
             <Select
               labelId="demo-simple-select-helper-label"
@@ -79,7 +83,7 @@ const UploadForm = () => {
             </Select>
             <FormHelperText>With label + helper text</FormHelperText>
           </FormControl>
-          <FormControl sx={{ m: 1, minWidth: 120 }}>
+          <FormControl fullWidth sx={{ mt: 2.5 }}>
             <InputLabel id="demo-simple-select-helper-label">Age</InputLabel>
             <Select
               labelId="demo-simple-select-helper-label"
@@ -97,25 +101,29 @@ const UploadForm = () => {
             </Select>
             <FormHelperText>With label + helper text</FormHelperText>
           </FormControl>
-          <DesktopDatePicker
-            label="Suitable age group for the clip"
-            inputFormat="MM/dd/yyyy"
-            value={value}
-            onChange={handleChange}
-            renderInput={(params) => (
-              <TextField
-                {...params}
-                helperText="This will be used to filter videos on age group suitability"
-              />
-            )}
-          />
+          <LocalizationProvider dateAdapter={AdapterDateFns}>
+            <DesktopDatePicker
+              label="Suitable age group for the clip"
+              inputFormat="MM/dd/yyyy"
+              value={value}
+              onChange={handleChange}
+              renderInput={(params) => (
+                <TextField
+                  {...params}
+                  fullWidth
+                  sx={{ mt: 2.5 }}
+                  helperText="This will be used to filter videos on age group suitability"
+                />
+              )}
+            />
+          </LocalizationProvider>
         </DialogContent>
         <DialogActions>
           <Button onClick={handleClose}>Cancel</Button>
-          <Button onClick={handleClose}>Subscribe</Button>
+          <Button onClick={handleClickSubmit}>Subscribe</Button>
         </DialogActions>
-      </Dialog>
-    </div>
+      </form>
+    </Dialog>
   );
 };
 

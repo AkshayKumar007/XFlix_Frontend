@@ -1,11 +1,17 @@
 import React from 'react';
-import Header from './Header';
+import { useState } from 'react';
 
-const Layout = ({ children }) => {
+import Header from './Header';
+import UploadForm from './UploadForm';
+
+const Layout = ({ children, allVideos }) => {
+  const [formVisibility, setFormVisibility] = useState(false);
+
   return (
     <>
-      <Header />
+      <Header allVideos={allVideos} visibility={formVisibility} setVisibility={setFormVisibility} />
       {children}
+      <UploadForm visibility={formVisibility} setVisibility={setFormVisibility} />
     </>
   );
 };
