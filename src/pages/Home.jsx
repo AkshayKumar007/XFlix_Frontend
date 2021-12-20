@@ -12,6 +12,10 @@ const Home = ({ allVideos }) => {
     setHeaderOptions(true);
   }, []);
 
+  useEffect(() => {
+    setLocalVideos(allVideos);
+  }, [allVideos]);
+
   const [localVideos, setLocalVideos] = useState(allVideos);
 
   return (

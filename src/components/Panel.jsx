@@ -172,7 +172,7 @@ const Panel = ({ allVideos }) => {
           ))}
           {/* show modal and check for which one is selected */}
 
-          <Button
+          <Button  // replace it with Floating Action Button aka Fab
             onClick={() => {
               setOpen(!open);
             }}

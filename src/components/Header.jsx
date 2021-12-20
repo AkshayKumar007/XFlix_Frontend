@@ -13,8 +13,6 @@ const Header = () => {
 
   const handleUploadClick = (event) => {};
 
-  let modalDiv = document.getElementById('modal');
-
   return (
     <div className="header">
       {headerOptions ? (
