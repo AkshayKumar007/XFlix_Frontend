@@ -27,9 +27,6 @@ const App = () => {
           },
         });
         let jsonResponse = await response.json();
-        // let videoList = jsonResponse.videos.map((video) => {
-        //   return Object.assign({}, video, {display: true});
-        // });
         setVideos(jsonResponse.videos);
       } catch (e) {
         errored = true;
@@ -61,11 +58,7 @@ const App = () => {
                   path="/"
                   render={() => <Home allVideos={videos} />}
                 />
-                <Route
-                  exact
-                  path="/video/:id"
-                  render={() => <Video allVideos={videos} />}
-                />
+                <Route exact path="/video/:videoId" render={() => <Video />} />
               </Switch>
             </Layout>
           </VideoContext.Provider>

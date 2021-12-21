@@ -1,19 +1,33 @@
 import React from 'react';
-import { Card, CardActionArea, CardMedia, CardContent } from '@mui/material';
-import { Typography } from '@mui/material';
+import {
+  Card,
+  CardActionArea,
+  CardMedia,
+  CardContent,
+  Typography,
+} from '@mui/material';
+import { useHistory } from 'react-router';
 import { formatDistanceToNow } from 'date-fns';
 
-const PreviewCard = ({ previewImage, title, releaseDate }) => {
+const PreviewCard = ({ id, previewImage, title, releaseDate }) => {
+  const history = useHistory();
+
+  const handleClick = () => {
+    history.push(`/video/${id}`);
+  };
+
   return (
-    <Card sx={{mr: 2, my: 2}} elevation={0}>
+    <Card sx={{ mr: 2, my: 2 }} elevation={0} onClick={handleClick}>
       <CardActionArea>
-        <CardMedia
-          component="img"
-          image={previewImage}
-          alt={title}
-        />
+        <CardMedia component="img" image={previewImage} alt={title} />
         <CardContent>
-          <Typography gutterBottom variant="subtitle1" noWrap={true} align="left" component="div">
+          <Typography
+            gutterBottom
+            variant="subtitle1"
+            noWrap={true}
+            align="left"
+            component="div"
+          >
             {title}
           </Typography>
           <Typography variant="body2" align="left" color="text.secondary">
