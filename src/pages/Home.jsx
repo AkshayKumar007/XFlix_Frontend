@@ -1,5 +1,4 @@
-import React from 'react';
-import { useContext, useEffect } from 'react';
+import React, { useContext, useEffect } from 'react';
 
 import Panel from '../components/Panel';
 import headerOptionsContext from '../utils/HeaderOptionsContext';
@@ -14,7 +13,7 @@ const Home = ({ allVideos }) => {
   return (
     <>
       <Panel allVideos={allVideos} />
-      <Dashboard></Dashboard>
+      <Dashboard />
     </>
   );
 };
