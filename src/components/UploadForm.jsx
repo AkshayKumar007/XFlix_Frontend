@@ -30,7 +30,7 @@ const uploadVideo = async (data) => {
       },
       body: JSON.stringify(data),
     });
-    const jsonResponse = response.json();
+    const jsonResponse = await response.json();
     if (response.status !== 201) {
       throw new Error(jsonResponse);
     }
@@ -58,7 +58,7 @@ const UploadForm = ({ visibility, setVisibility }) => {
   ];
 
   const [open, setOpen] = useState(false);
-  const [alert, setAlert] = useState({
+  const [alertMessage, setAlert] = useState({
     type: 'success',
     message: 'Video Uploaded Successfully',
   });
@@ -90,11 +90,6 @@ const UploadForm = ({ visibility, setVisibility }) => {
   const [link, setLink] = useState('');
   const [thumbnail, setThumbnail] = useState('');
 
-  // this and similar methods to handle change in input
-  const handleChange = (newValue) => {
-    setDateValue(newValue);
-  };
-
   // method to toggle visibility of form
   const handleClickSubmit = () => {
     const data = {
@@ -106,7 +101,7 @@ const UploadForm = ({ visibility, setVisibility }) => {
       previewImage: thumbnail,
     };
     const result = uploadVideo(data);
-    if (result) {
+    if (result === true) {
       setAlert({
         type: 'success',
         message: 'Video Uploaded Successfully',
@@ -185,10 +180,17 @@ const UploadForm = ({ visibility, setVisibility }) => {
                 id="demo-simple-select-helper"
                 value={genre}
                 label="Age"
-                onChange={setGenre}
+                onChange={(event) => {
+                  console.log(event.target.value);
+                  setGenre(event.target.value);
+                }}
               >
                 {genreOptions.map((option) => {
-                  return <MenuItem key={option.key}> {option.label} </MenuItem>;
+                  return (
+                    <MenuItem value={option.label} key={option.label}>
+                      {option.label}
+                    </MenuItem>
+                  );
                 })}
               </Select>
               <FormHelperText>
@@ -206,10 +208,17 @@ const UploadForm = ({ visibility, setVisibility }) => {
                 id="demo-simple-select-helper"
                 value={contentRating}
                 label="Genre"
-                onChange={setContentRating}
+                onChange={(event) => {
+                  console.log(event.target.value);
+                  setContentRating(event.target.value);
+                }}
               >
                 {ageOptions.map((option) => {
-                  return <MenuItem key={option.key}> {option.label} </MenuItem>;
+                  return (
+                    <MenuItem value={option.label} key={option.label}>
+                      {option.label}{' '}
+                    </MenuItem>
+                  );
                 })}
               </Select>
               <FormHelperText>
@@ -223,7 +232,9 @@ const UploadForm = ({ visibility, setVisibility }) => {
                 label="Release Date"
                 inputFormat="MM/dd/yyyy"
                 value={dateValue}
-                onChange={handleChange}
+                onChange={(newValue) => {
+                  setDateValue(newValue);
+                }}
                 renderInput={(params) => (
                   <TextField
                     {...params}
@@ -262,10 +273,10 @@ const UploadForm = ({ visibility, setVisibility }) => {
         >
           <Alert
             onClose={handleClose}
-            severity={alert.type}
+            severity={alertMessage.type}
             sx={{ width: '100%' }}
           >
-            {alert.message}
+            {alertMessage.message}
           </Alert>
         </Snackbar>
       </div>

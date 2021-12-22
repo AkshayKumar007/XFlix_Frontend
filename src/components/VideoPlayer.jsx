@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Grid, Stack, Typography, Fab, Box } from '@mui/material';
+import { Skeleton, Grid, Stack, Typography, Fab, Box } from '@mui/material';
 import { ThumbUp, ThumbDown } from '@mui/icons-material';
 // import { formatDistanceToNow } from 'date-fns';
 
@@ -182,7 +182,21 @@ const VideoPlayer = ({ id }) => {
       </>
     );
   }
-  return <div> {'Video is Loading'} </div>;
+  return (
+    <Grid
+      container
+      sx={{ pl: 20, my: 2, pr: 22 }}
+      columns={{ xs: 12, sm: 12, md: 12, lg: 12 }}
+    >
+      <Grid item xs={12} sx={{ height: 700, aspectRatio: 16 / 9 }}>
+        <Skeleton height="90%" variant="rectangular" />
+        <Box sx={{ pt: 0.5 }}>
+          <Skeleton />
+          <Skeleton width="60%" />
+        </Box>
+      </Grid>
+    </Grid>
+  );
 };
 
 export default VideoPlayer;
