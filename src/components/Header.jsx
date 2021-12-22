@@ -58,7 +58,12 @@ const Header = ({ visibility, setVisibility }) => {
             <CssBaseline>
               {/* Xflix icon */}
               <Link to="/">
-                <Box component="img" alt="XFlix" src="/XFlix-logo.png" />
+                <Box
+                  sx={{ height: 25 }}
+                  component="img"
+                  alt="XFlix"
+                  src="/XFlix-logo.png"
+                />
               </Link>
             </CssBaseline>
           </Toolbar>
