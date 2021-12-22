@@ -12,7 +12,7 @@ const Dashboard = () => {
     <Box sx={{ flexGrow: 1 }}>
       <Grid
         container
-        sx={{ px: 10, my: 2 }}
+        sx={{ px: 20, my: 2 }}
         columns={{ xs: 12, sm: 12, md: 12, lg: 12 }}
       >
         {localVideos.map((item) => (

@@ -27,6 +27,7 @@ const PreviewCard = ({ id, previewImage, title, releaseDate }) => {
             noWrap={true}
             align="left"
             component="div"
+            sx={{ fontWeight: 'bold' }}
           >
             {title}
           </Typography>
