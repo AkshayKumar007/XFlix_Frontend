@@ -5,8 +5,10 @@ import {
   Stack,
   Select,
   MenuItem,
-  Button,
+  Menu,
   Container,
+  Grid,
+  Fab,
 } from '@mui/material';
 import SwapVertIcon from '@mui/icons-material/SwapVert';
 
@@ -80,6 +82,8 @@ const Panel = ({ allVideos }) => {
   const [open, setOpen] = useState(false);
   const [sortOption, setSortOption] = useState(criteria[0].label);
 
+  const [anchorEl, setAnchorEl] = React.useState(null);
+
   const [ageGroup, setAgeGroup] = useState([
     { label: 'Any age group', color: 'primary', key: 0 },
     { label: '7+', color: 'success', key: 1 },
@@ -121,7 +125,7 @@ const Panel = ({ allVideos }) => {
           return Object.assign({}, item, { color: 'success' });
         } else if (item.label === label) {
           return Object.assign({}, item, { color: 'primary' });
-        } else if(group === ageGroup && item.label !== label ) {
+        } else if (group === ageGroup && item.label !== label) {
           return Object.assign({}, item, { color: 'success' });
         } else {
           return Object.assign({}, item);
@@ -146,70 +150,90 @@ const Panel = ({ allVideos }) => {
 
   const handleSortChange = (event) => {
     let sortedList = [];
-    if (event.target.value === 'Release Date') {
+    if (event === 'Release Date') {
       sortedList = [...localVideos].sort(dateSort);
     } else {
       sortedList = [...localVideos].sort(viewSort);
     }
     setLocalVideos(sortedList);
-    setSortOption(event.target.value);
+    setSortOption(event);
   };
 
   return (
-    <Container sx={{my: 2}} spacing={2}>
-      <Stack spacing={2}>
-        <Stack
-          direction="row"
-          spacing={2}
-          justifyContent="center"
-          alignItems="center"
-        >
-          {genreGroup.map(({ label, key, color }) => (
+    <Container sx={{ my: 2 }} spacing={2}>
+      <Grid
+        container
+        spacing={2}
+        direction="row"
+        justifyContent="center"
+        alignItems="center"
+      >
+        {genreGroup.map(({ label, key, color }) => (
+          <Grid item key={key}>
             <Chip
-              key={key}
               color={color}
               label={label}
               onClick={() => handleFilterClick(genreGroup, label)}
             />
-          ))}
-          {/* show modal and check for which one is selected */}
-
-          <Button  // replace it with Floating Action Button aka Fab
-            onClick={() => {
+          </Grid>
+        ))}
+        {/* show modal and check for which one is selected */}
+        <Grid item>
+          <Fab
+            variant="extended"
+            size="medium"
+            sx={{ boxShadow: 0 }}
+            onClick={(event) => {
+              setAnchorEl(event.currentTarget);
               setOpen(!open);
             }}
           >
-            <Select
-              sx={{ borderRadius: '100px' }}
-              size={'small'}
-              onClick={() => setOpen(!open)}
-              value={sortOption}
-              open={open}
-              onChange={handleSortChange}
-              IconComponent={() => <SwapVertIcon />}
+            <SwapVertIcon sx={{ mr: 1 }} />
+            {sortOption}
+          </Fab>
+          <Menu
+            sx={{ borderRadius: '100px' }}
+            size={'small'}
+            onClick={() => setOpen(!open)}
+            anchorEl={anchorEl}
+            value={sortOption}
+            open={open}
+            onChange={handleSortChange}
+          >
+            <MenuItem
+              onClick={() => handleSortChange(criteria[0].label)}
+              value={criteria[0].label}
             >
-              <MenuItem value={criteria[0].label}>{criteria[0].label}</MenuItem>
-              <MenuItem value={criteria[1].label}>{criteria[1].label}</MenuItem>
-            </Select>
-          </Button>
-        </Stack>
+              {criteria[0].label}
+            </MenuItem>
+            <MenuItem
+              onClick={() => handleSortChange(criteria[1].label)}
+              value={criteria[1].label}
+            >
+              {criteria[1].label}
+            </MenuItem>
+          </Menu>
+        </Grid>
+      </Grid>
 
-        <Stack
-          spacing={2}
-          direction="row"
-          justifyContent="center"
-          alignItems="center"
-        >
-          {ageGroup.map(({ label, key, color }) => (
+      <Grid
+        container
+        sx={{ mt: 1 }}
+        spacing={2}
+        direction="row"
+        justifyContent="center"
+        alignItems="center"
+      >
+        {ageGroup.map(({ label, key, color }) => (
+          <Grid item key={key}>
             <Chip
-              key={key}
               label={label}
               color={color}
               onClick={() => handleFilterClick(ageGroup, label)}
-            />
-          ))}
-        </Stack>
-      </Stack>
+            />{' '}
+          </Grid>
+        ))}
+      </Grid>
     </Container>
   );
 };

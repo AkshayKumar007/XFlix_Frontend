@@ -55,7 +55,7 @@ const PreviewCard = ({ id, previewImage, title, releaseDate }) => {
       <CardHeader
         align="left"
         avatar={<Avatar {...stringAvatar(title)} />}
-        titleTypographyProps={{ variant: 'subtitle1', fontWeight: 'bold' }}
+        titleTypographyProps={{ variant: 'subtitle1', fontWeight: 'bold', noWrap: true }}
         subheader={`${formatDistanceToNow(new Date(releaseDate))} ago`}
         title={title}
       />
