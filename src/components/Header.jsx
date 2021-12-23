@@ -1,12 +1,13 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { Link } from 'react-router-dom';
 import Search from './Search';
-import { useContext } from 'react';
+
+import FileUploadIcon from '@mui/icons-material/FileUpload';
+import { AppBar, CssBaseline, Toolbar, Box, Button } from '@mui/material';
 
 import headerOptionsContext from '../utils/HeaderOptionsContext';
 import VideoContext from '../utils/VideoContext';
-import FileUploadIcon from '@mui/icons-material/FileUpload';
-import { AppBar, CssBaseline, Toolbar, Box, Button } from '@mui/material';
+import { config } from '../App';
 
 const Header = ({ visibility, setVisibility }) => {
   const [headerOptions, setHeaderOptions] = useContext(headerOptionsContext);
@@ -15,7 +16,23 @@ const Header = ({ visibility, setVisibility }) => {
   const [localVideos, setLocalVideos] = useContext(VideoContext);
 
   // change local videos based on pattern
-  const handleSearch = (event) => {};
+  const handleSearch = (searchParam) => {
+    const getMatchingVideos = async (searchParam) => {
+      try {
+        const response = await fetch(
+          `${config.endpoint}/v1/videos?title=${searchParam}`
+        );
+        const jsonResponse = await response.json();
+        if (!response.ok) {
+          throw new Error(jsonResponse);
+        }
+        setLocalVideos(jsonResponse.videos);
+      } catch (e) {
+        console.log(`Search Error: ${e.message}`);
+      }
+    };
+    getMatchingVideos(searchParam);
+  };
 
   const handleUploadClick = () => {
     setVisibility(!visibility);
@@ -25,6 +42,7 @@ const Header = ({ visibility, setVisibility }) => {
     <div className="header">
       {headerOptions ? (
         <AppBar position="static">
+          {/* style={{ background: '#2E3B55' }}> */}
           <Toolbar>
             <CssBaseline>
               {/* Xflix icon */}
@@ -44,6 +62,7 @@ const Header = ({ visibility, setVisibility }) => {
               <Box sx={{ flexGrow: 1 }} />
               <Button
                 onClick={handleUploadClick}
+                color="success"
                 sx={{ display: 'flex' }}
                 variant="contained"
                 endIcon={<FileUploadIcon />}

@@ -253,7 +253,11 @@ const UploadForm = ({ visibility, setVisibility }) => {
             alignItems="center"
             sx={{ pl: 3, pb: 3 }}
           >
-            <Button variant="contained" onClick={handleClickSubmit}>
+            <Button
+              color="error"
+              variant="contained"
+              onClick={handleClickSubmit}
+            >
               Upload Video
             </Button>
             <Button sx={{ pl: 3 }} onClick={handleClose}>

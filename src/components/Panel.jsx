@@ -1,11 +1,15 @@
-import React from 'react';
-import { useState, useEffect, useContext } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import { Chip, MenuItem, Menu, Container, Grid, Fab } from '@mui/material';
 import SwapVertIcon from '@mui/icons-material/SwapVert';
+import { styled } from '@mui/material/styles';
 
 import VideoContext from '../utils/VideoContext';
 
 // Helper methods
+
+const MyContainer = styled(Container)(({ theme }) => ({
+  backgroundColor: theme.palette.secondary.main,
+}));
 
 const viewSort = (a, b) => {
   if (a.viewCount < b.viewCount) return 1;
@@ -77,19 +81,19 @@ const Panel = ({ allVideos }) => {
 
   const [ageGroup, setAgeGroup] = useState([
     { label: 'Any age group', color: 'primary', key: 0 },
-    { label: '7+', color: 'success', key: 1 },
-    { label: '12+', color: 'success', key: 2 },
-    { label: '16+', color: 'success', key: 3 },
-    { label: '18+', color: 'success', key: 4 },
+    { label: '7+', color: 'secondary', key: 1 },
+    { label: '12+', color: 'secondary', key: 2 },
+    { label: '16+', color: 'secondary', key: 3 },
+    { label: '18+', color: 'secondary', key: 4 },
   ]);
 
   const [genreGroup, setGenreGroup] = useState([
     { label: 'All Genre', color: 'primary', key: 0 },
-    { label: 'Education', color: 'success', key: 1 },
-    { label: 'Sports', color: 'success', key: 2 },
-    { label: 'Comedy', color: 'success', key: 3 },
-    { label: 'Lifestyle', color: 'success', key: 4 },
-    { label: 'Movies', color: 'success', key: 5 },
+    { label: 'Education', color: 'secondary', key: 1 },
+    { label: 'Sports', color: 'secondary', key: 2 },
+    { label: 'Comedy', color: 'secondary', key: 3 },
+    { label: 'Lifestyle', color: 'secondary', key: 4 },
+    { label: 'Movies', color: 'secondary', key: 5 },
   ]);
 
   const handleFilterClick = (group, label) => {
@@ -97,7 +101,7 @@ const Panel = ({ allVideos }) => {
     if (group === genreGroup && label === 'All Genre') {
       newList = group.map((item) => {
         if (item.label !== 'All Genre') {
-          return Object.assign({}, item, { color: 'success' });
+          return Object.assign({}, item, { color: 'secondary' });
         } else {
           return Object.assign({}, item, { color: 'primary' });
         }
@@ -105,7 +109,7 @@ const Panel = ({ allVideos }) => {
     } else if (group === ageGroup && label === 'Any age group') {
       newList = group.map((item) => {
         if (item.label !== 'Any age group') {
-          return Object.assign({}, item, { color: 'success' });
+          return Object.assign({}, item, { color: 'secondary' });
         } else {
           return Object.assign({}, item, { color: 'primary' });
         }
@@ -113,11 +117,11 @@ const Panel = ({ allVideos }) => {
     } else {
       newList = group.map((item) => {
         if (item.label === 'All Genre' || item.label === 'Any age group') {
-          return Object.assign({}, item, { color: 'success' });
+          return Object.assign({}, item, { color: 'secondary' });
         } else if (item.label === label) {
           return Object.assign({}, item, { color: 'primary' });
         } else if (group === ageGroup && item.label !== label) {
-          return Object.assign({}, item, { color: 'success' });
+          return Object.assign({}, item, { color: 'secondary' });
         } else {
           return Object.assign({}, item);
         }
@@ -151,7 +155,7 @@ const Panel = ({ allVideos }) => {
   };
 
   return (
-    <Container sx={{ my: 2 }} spacing={2}>
+    <MyContainer sx={{ my: 2 }} spacing={2}>
       <Grid
         container
         spacing={2}
@@ -173,6 +177,7 @@ const Panel = ({ allVideos }) => {
           <Fab
             variant="extended"
             size="medium"
+            color="primary"
             sx={{ boxShadow: 0 }}
             onClick={(event) => {
               setAnchorEl(event.currentTarget);
@@ -225,7 +230,7 @@ const Panel = ({ allVideos }) => {
           </Grid>
         ))}
       </Grid>
-    </Container>
+    </MyContainer>
   );
 };
 

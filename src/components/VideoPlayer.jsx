@@ -1,14 +1,30 @@
 import React, { useState, useEffect } from 'react';
 import { Skeleton, Grid, Typography, Fab, Box } from '@mui/material';
 import { ThumbUp, ThumbDown } from '@mui/icons-material';
+import { styled } from '@mui/material/styles';
 // import { formatDistanceToNow } from 'date-fns';
 
 import { config } from '../App';
 
+const MyContainer = styled('div')({
+  position: 'relative',
+  paddingBottom: '45%', // 56.25
+  paddingTop: 2,
+  borderRadius: 4,
+});
+
+const MyIFrame = styled('iframe')({
+  position: 'absolute',
+  top: 0,
+  left: 0,
+  width: '100%',
+  height: '100%',
+});
+
 const VideoPlayer = ({ id }) => {
   let [video, setVideo] = useState(null);
 
-  const [upvotes, setUpvotes] = useState(0); // votes.upVotes)
+  const [upvotes, setUpvotes] = useState(0); // votes.upVotes
   const [downvotes, setDownvotes] = useState(0); // votes.downVotes
 
   useEffect(() => {
@@ -109,19 +125,21 @@ const VideoPlayer = ({ id }) => {
           // sx={{ pr: 22 }}  pl: 20, my: 2,
           columns={{ xs: 12, sm: 12, md: 12, lg: 12 }}
         >
-          <Grid item xs={10} sx={{ height: 700, aspectRatio: 16 / 9 }}>
+          <Grid item xs={10} >
             {/* .videoWrapper {
             position: relative;
             padding-bottom: 56.25%; // 16: 9
             padding-top: 25px;
             height: 0;
           }*/}
-            <iframe
-              width="100%"
-              height="100%"
-              frameBorder="0"
-              src={`https://${video.videoLink}`}
-            />
+            <MyContainer>
+              <MyIFrame
+                width="100%"
+                height="100%"
+                frameBorder="0"
+                src={`https://${video.videoLink}`}
+              />
+            </MyContainer>
             {/* .videoWrapper iframe {
             position: absolute;
             top: 0;
@@ -160,21 +178,21 @@ const VideoPlayer = ({ id }) => {
               variant="extended"
               size="medium"
               color="primary"
-              aria-label="add"
-              value="upVote"
               sx={{ mr: 1 }}
+              value="upVote"
+              onClick={() => handleVote('upvote')}
             >
               <ThumbUp sx={{ mr: 1 }} />
-              {0}
+              {upvotes}
             </Fab>
             <Fab
               variant="extended"
               size="medium"
               color="primary"
-              aria-label="add"
+              onClick={() => handleVote('downvote')}
             >
               <ThumbDown sx={{ mr: 1 }} />
-              {1}
+              {downvotes}
             </Fab>
           </Grid>
           <Grid item xs={1} sm={1} md={1} lg={0.5}>

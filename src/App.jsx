@@ -6,6 +6,7 @@ import Home from './pages/Home';
 import Video from './pages/Video';
 import headerOptionsContext from './utils/HeaderOptionsContext';
 import VideoContext from './utils/VideoContext';
+import Theme from './utils/Theme';
 import './App.css';
 
 export const config = {
@@ -47,22 +48,28 @@ const App = () => {
   return (
     <div className="App">
       <Router>
-        <headerOptionsContext.Provider
-          value={[headerOptions, setHeaderOptions]}
-        >
-          <VideoContext.Provider value={[localVideos, setLocalVideos]}>
-            <Layout allVideos={videos}>
-              <Switch>
-                <Route
-                  exact
-                  path="/"
-                  render={() => <Home allVideos={videos} />}
-                />
-                <Route exact path="/video/:videoId" render={() => <Video />} />
-              </Switch>
-            </Layout>
-          </VideoContext.Provider>
-        </headerOptionsContext.Provider>
+        <Theme>
+          <headerOptionsContext.Provider
+            value={[headerOptions, setHeaderOptions]}
+          >
+            <VideoContext.Provider value={[localVideos, setLocalVideos]}>
+              <Layout allVideos={videos}>
+                <Switch>
+                  <Route
+                    exact
+                    path="/"
+                    render={() => <Home allVideos={videos} />}
+                  />
+                  <Route
+                    exact
+                    path="/video/:videoId"
+                    render={() => <Video />}
+                  />
+                </Switch>
+              </Layout>
+            </VideoContext.Provider>
+          </headerOptionsContext.Provider>
+        </Theme>
       </Router>
     </div>
   );
