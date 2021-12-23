@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Skeleton, Grid, Stack, Typography, Fab, Box } from '@mui/material';
+import { Skeleton, Grid, Typography, Fab, Box } from '@mui/material';
 import { ThumbUp, ThumbDown } from '@mui/icons-material';
 // import { formatDistanceToNow } from 'date-fns';
 
@@ -99,13 +99,17 @@ const VideoPlayer = ({ id }) => {
 
   if (video !== null) {
     return (
-      <>
+      <Box sx={{ flexGrow: 1 }}>
         <Grid
           container
-          sx={{ pl: 20, my: 2, pr: 22 }}
+          direction="row"
+          justifyContent="center"
+          alignItems="center"
+          sx={{ pt: 2 }}
+          // sx={{ pr: 22 }}  pl: 20, my: 2,
           columns={{ xs: 12, sm: 12, md: 12, lg: 12 }}
         >
-          <Grid item xs={12} sx={{ height: 700, aspectRatio: 16 / 9 }}>
+          <Grid item xs={10} sx={{ height: 700, aspectRatio: 16 / 9 }}>
             {/* .videoWrapper {
             position: relative;
             padding-bottom: 56.25%; // 16: 9
@@ -129,19 +133,18 @@ const VideoPlayer = ({ id }) => {
           } */}
           </Grid>
         </Grid>
-        <Stack
-          direction="row"
-          alignItems="center"
-          justifyContent="space-between"
-          sx={{ pl: 20, my: 2, pr: 22 }}
-        >
-          <Box>
+        <Grid sx={{ py: 4 }} container justifyContent="space-between">
+          <Grid item xs={1} sm={1} md={1} lg={1}>
+            <Box sx={{ flexGrow: 1 }} />
+          </Grid>
+          <Grid item xs={6} sm={8} md={8} lg={8}>
             <Typography
               variant="h5"
-              display="block"
+              noWrap
+              align="left"
               sx={{ fontWeight: 'bold' }}
             >
-              {video.title}
+              {'Consumed by the Apocalypse'}
             </Typography>
             <Typography
               sx={{ pt: 1 }}
@@ -149,43 +152,45 @@ const VideoPlayer = ({ id }) => {
               align="left"
               color="text.secondary"
             >
-              {`${video.contentRating} • ${video.releaseDate}`}
+              {`12+ • 18 Jan 2021`}
             </Typography>
-          </Box>
-          <Box>
-            {/* Content for Like  */}
+          </Grid>
+          <Grid item xs={4} sm={2} md={1} lg={2}>
             <Fab
               variant="extended"
               size="medium"
               color="primary"
               aria-label="add"
-              sx={{ mr: 1 }}
               value="upVote"
-              onClick={() => handleVote('upvote')}
+              sx={{ mr: 1 }}
             >
               <ThumbUp sx={{ mr: 1 }} />
-              {upvotes}
+              {0}
             </Fab>
-            {/* Content for dislike */}
             <Fab
               variant="extended"
               size="medium"
               color="primary"
               aria-label="add"
-              onClick={() => handleVote('downvote')}
             >
               <ThumbDown sx={{ mr: 1 }} />
-              {downvotes}
+              {1}
             </Fab>
-          </Box>
-        </Stack>
-      </>
+          </Grid>
+          <Grid item xs={1} sm={1} md={1} lg={0.5}>
+            <Box sx={{ flexGrow: 1 }} />
+          </Grid>
+        </Grid>
+      </Box>
     );
   }
   return (
     <Grid
       container
-      sx={{ pl: 20, my: 2, pr: 22 }}
+      direction="row"
+      justifyContent="center"
+      alignItems="center"
+      sx={{ pt: 2 }}
       columns={{ xs: 12, sm: 12, md: 12, lg: 12 }}
     >
       <Grid item xs={12} sx={{ height: 700, aspectRatio: 16 / 9 }}>
@@ -200,3 +205,29 @@ const VideoPlayer = ({ id }) => {
 };
 
 export default VideoPlayer;
+
+{
+  /* <Grid item xs={4}>
+<Fab
+  variant="extended"
+  size="medium"
+  color="primary"
+  aria-label="add"
+  value="upVote"
+  onClick={() => handleVote('upvote')}
+>
+  <ThumbUp sx={{ mr: 1 }} />
+  {upvotes}
+</Fab>
+<Fab
+  variant="extended"
+  size="medium"
+  color="primary"
+  aria-label="add"
+  onClick={() => handleVote('downvote')}
+>
+  <ThumbDown sx={{ mr: 1 }} />
+  {downvotes}
+</Fab>
+</Grid> */
+}

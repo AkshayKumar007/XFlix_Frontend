@@ -16,7 +16,7 @@ const Video = () => {
   return (
     <>
       <VideoPlayer id={videoId} />
-      <Divider sx={{ ml: 20, mr: 22 }} />
+      <Divider sx={{ ml: 20, mr: 20 }} />
       <Dashboard />
     </>
   );

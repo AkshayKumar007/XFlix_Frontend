@@ -11,8 +11,8 @@ import { AppBar, CssBaseline, Toolbar, Box, Button } from '@mui/material';
 const Header = ({ visibility, setVisibility }) => {
   const [headerOptions, setHeaderOptions] = useContext(headerOptionsContext);
 
+  // use this to change local Videos based on API calls for search
   const [localVideos, setLocalVideos] = useContext(VideoContext);
-  console.log('local Videos', localVideos);
 
   // change local videos based on pattern
   const handleSearch = (event) => {};
@@ -30,20 +30,21 @@ const Header = ({ visibility, setVisibility }) => {
               {/* Xflix icon */}
               <Link to="/">
                 <Box
-                  sx={{ height: 25 }}
+                  sx={{ height: 35, pt: 1 }}
                   component="img"
                   alt="XFlix"
                   src="/XFlix-logo.png"
                 />
               </Link>
-
+              <Box sx={{ flexGrow: 1 }} />
               {/* Search icon */}
               <Search handleSearch={handleSearch} />
 
               {/* Upload Button */}
-
+              <Box sx={{ flexGrow: 1 }} />
               <Button
                 onClick={handleUploadClick}
+                sx={{ display: 'flex' }}
                 variant="contained"
                 endIcon={<FileUploadIcon />}
               >

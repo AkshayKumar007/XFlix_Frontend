@@ -14,7 +14,6 @@ const Search = (props) => {
           p: '0px 2px',
           display: 'flex',
           alignItems: 'center',
-          width: '60rem',
           border: '1px solid grey',
         }}
         elevation={0}

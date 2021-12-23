@@ -45,7 +45,8 @@ const PreviewCard = ({ id, previewImage, title, releaseDate }) => {
   };
 
   return (
-    <Card sx={{ mr: 2, my: 2 }} elevation={0} onClick={handleClick}>
+    <Card elevation={0} onClick={handleClick}> 
+    {/* sx={{ mr: 2, my: 2 }} */}
       <CardMedia
         align="left"
         component="img"

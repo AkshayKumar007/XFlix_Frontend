@@ -9,7 +9,7 @@ import VideoContext from './utils/VideoContext';
 import './App.css';
 
 export const config = {
-  endpoint: `https://52fde4a7-dca8-4f0c-b3bd-37879407f81f.mock.pstmn.io`,
+  endpoint: `https://a9dbbc30-7f76-4a58-af9f-189c09f97c41.mock.pstmn.io`,
 };
 
 const App = () => {

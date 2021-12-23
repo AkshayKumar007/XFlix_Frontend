@@ -1,15 +1,6 @@
 import React from 'react';
 import { useState, useEffect, useContext } from 'react';
-import {
-  Chip,
-  Stack,
-  Select,
-  MenuItem,
-  Menu,
-  Container,
-  Grid,
-  Fab,
-} from '@mui/material';
+import { Chip, MenuItem, Menu, Container, Grid, Fab } from '@mui/material';
 import SwapVertIcon from '@mui/icons-material/SwapVert';
 
 import VideoContext from '../utils/VideoContext';
