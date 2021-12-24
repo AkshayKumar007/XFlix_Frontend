@@ -11,6 +11,10 @@ const MyContainer = styled(Container)(({ theme }) => ({
   backgroundColor: theme.palette.secondary.main,
 }));
 
+const MyGrid = styled(Grid)(({ theme }) => ({
+  backgroundColor: theme.palette.secondary.main,
+}));
+
 const viewSort = (a, b) => {
   if (a.viewCount < b.viewCount) return 1;
   else if (a.viewCount > b.viewCount) return -1;
@@ -155,82 +159,87 @@ const Panel = ({ allVideos }) => {
   };
 
   return (
-    <MyContainer sx={{ my: 2 }} spacing={2}>
-      <Grid
-        container
-        spacing={2}
-        direction="row"
-        justifyContent="center"
-        alignItems="center"
-      >
-        {genreGroup.map(({ label, key, color }) => (
-          <Grid item key={key}>
-            <Chip
-              color={color}
-              label={label}
-              onClick={() => handleFilterClick(genreGroup, label)}
-            />
+    // <MyContainer sx={{ my: 25,  }} spacing={2}>
+    <MyGrid container justifyContent="center" direction="column" sx={{paddingTop: 2, paddingBottom: 4}}>
+      <Grid item>
+        <Grid
+          container
+          spacing={2}
+          direction="row"
+          justifyContent="center"
+          alignItems="center"
+        >
+          {genreGroup.map(({ label, key, color }) => (
+            <Grid item key={key}>
+              <Chip
+                color={color}
+                label={label}
+                onClick={() => handleFilterClick(genreGroup, label)}
+              />
+            </Grid>
+          ))}
+          {/* show modal and check for which one is selected */}
+          <Grid item>
+            <Fab
+              variant="extended"
+              size="medium"
+              color="primary"
+              sx={{ boxShadow: 0 }}
+              onClick={(event) => {
+                setAnchorEl(event.currentTarget);
+                setOpen(!open);
+              }}
+            >
+              <SwapVertIcon sx={{ mr: 1 }} />
+              {sortOption}
+            </Fab>
+            <Menu
+              sx={{ borderRadius: '100px' }}
+              size={'small'}
+              onClick={() => setOpen(!open)}
+              anchorEl={anchorEl}
+              value={sortOption}
+              open={open}
+              onChange={handleSortChange}
+            >
+              <MenuItem
+                onClick={() => handleSortChange(criteria[0].label)}
+                value={criteria[0].label}
+              >
+                {criteria[0].label}
+              </MenuItem>
+              <MenuItem
+                onClick={() => handleSortChange(criteria[1].label)}
+                value={criteria[1].label}
+              >
+                {criteria[1].label}
+              </MenuItem>
+            </Menu>
           </Grid>
-        ))}
-        {/* show modal and check for which one is selected */}
-        <Grid item>
-          <Fab
-            variant="extended"
-            size="medium"
-            color="primary"
-            sx={{ boxShadow: 0 }}
-            onClick={(event) => {
-              setAnchorEl(event.currentTarget);
-              setOpen(!open);
-            }}
-          >
-            <SwapVertIcon sx={{ mr: 1 }} />
-            {sortOption}
-          </Fab>
-          <Menu
-            sx={{ borderRadius: '100px' }}
-            size={'small'}
-            onClick={() => setOpen(!open)}
-            anchorEl={anchorEl}
-            value={sortOption}
-            open={open}
-            onChange={handleSortChange}
-          >
-            <MenuItem
-              onClick={() => handleSortChange(criteria[0].label)}
-              value={criteria[0].label}
-            >
-              {criteria[0].label}
-            </MenuItem>
-            <MenuItem
-              onClick={() => handleSortChange(criteria[1].label)}
-              value={criteria[1].label}
-            >
-              {criteria[1].label}
-            </MenuItem>
-          </Menu>
         </Grid>
       </Grid>
-
-      <Grid
-        container
-        sx={{ mt: 1 }}
-        spacing={2}
-        direction="row"
-        justifyContent="center"
-        alignItems="center"
-      >
-        {ageGroup.map(({ label, key, color }) => (
-          <Grid item key={key}>
-            <Chip
-              label={label}
-              color={color}
-              onClick={() => handleFilterClick(ageGroup, label)}
-            />{' '}
-          </Grid>
-        ))}
+      <Grid item>
+        <Grid
+          container
+          sx={{ mt: 1 }}
+          spacing={2}
+          direction="row"
+          justifyContent="center"
+          alignItems="center"
+        >
+          {ageGroup.map(({ label, key, color }) => (
+            <Grid item key={key}>
+              <Chip
+                label={label}
+                color={color}
+                onClick={() => handleFilterClick(ageGroup, label)}
+              />{' '}
+            </Grid>
+          ))}
+        </Grid>
       </Grid>
-    </MyContainer>
+    </MyGrid>
+    // </MyContainer>
   );
 };
 
