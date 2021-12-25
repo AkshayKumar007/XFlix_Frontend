@@ -21,26 +21,6 @@ import { DesktopDatePicker, LocalizationProvider } from '@mui/lab';
 
 import { config } from '../App';
 
-const uploadVideo = async (data) => {
-  try {
-    const response = await fetch(`${config.endpoint}/v1/videos`, {
-      method: 'POST',
-      header: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(data),
-    });
-    const jsonResponse = await response.json();
-    if (response.status !== 201) {
-      throw new Error(jsonResponse);
-    }
-  } catch (error) {
-    console.log(`Error in video upload: ${error.message}`);
-    return false;
-  }
-  return true;
-};
-
 const UploadForm = ({ visibility, setVisibility }) => {
   const ageOptions = [
     { label: '7+', key: 1 },
@@ -92,6 +72,34 @@ const UploadForm = ({ visibility, setVisibility }) => {
 
   // method to toggle visibility of form
   const handleClickSubmit = () => {
+    const uploadVideo = async (data) => {
+      try {
+        const response = await fetch(`${config.endpoint}/v1/videos`, {
+          method: 'POST',
+          header: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(data),
+        });
+        const jsonResponse = await response.json();
+        if (response.status !== 201) {
+          throw new Error(jsonResponse);
+        }
+        setAlert({
+          type: 'success',
+          message: 'Video Uploaded Successfully',
+        });
+      } catch (error) {
+        console.log(`Error in video upload: ${error.message}`);
+        setAlert({
+          type: 'error',
+          message: 'Video Upload Failed!',
+        });
+      } finally {
+        setOpen(true);
+      }
+    };
+
     const data = {
       videoLink: link,
       title: title,
@@ -100,19 +108,7 @@ const UploadForm = ({ visibility, setVisibility }) => {
       releaseDate: dateValue,
       previewImage: thumbnail,
     };
-    const result = uploadVideo(data);
-    if (result === true) {
-      setAlert({
-        type: 'success',
-        message: 'Video Uploaded Successfully',
-      });
-    } else {
-      setAlert({
-        type: 'error',
-        message: 'Video Upload Failed!',
-      });
-    }
-    setOpen(true);
+    uploadVideo(data);
   };
 
   // method to submit the form
