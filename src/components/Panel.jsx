@@ -180,14 +180,49 @@ const Panel = ({ allVideos }) => {
   // }, [genreGroup, ageGroup]);
 
   const handleSortChange = (event) => {
-    let sortedList = [];
+    setAgeGroup([
+      { label: 'Any age group', color: 'primary', key: 0 },
+      { label: '7+', color: 'secondary', key: 1 },
+      { label: '12+', color: 'secondary', key: 2 },
+      { label: '16+', color: 'secondary', key: 3 },
+      { label: '18+', color: 'secondary', key: 4 },
+    ]);
+
+    setGenreGroup([
+      { label: 'All Genre', color: 'primary', key: 0 },
+      { label: 'Education', color: 'secondary', key: 1 },
+      { label: 'Sports', color: 'secondary', key: 2 },
+      { label: 'Comedy', color: 'secondary', key: 3 },
+      { label: 'Lifestyle', color: 'secondary', key: 4 },
+      { label: 'Movies', color: 'secondary', key: 5 },
+    ]);
+
+    setSearchTerm('');
+
+    const getSortedData = async (query) => {
+      try {
+        let response = await fetch(`${config.endpoint}/v1/videos?${query}`, {
+          method: 'GET',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+        });
+        let jsonResponse = await response.json();
+        if (!response.ok) {
+          throw new Error(jsonResponse);
+        }
+        setLocalVideos(jsonResponse.videos);
+      } catch (e) {
+        console.log(`Error in Sort ${e.message}`);
+        setLocalVideos(allVideos);
+      }
+    };
+
     if (event === 'Release Date') {
-      sortedList = [...localVideos].sort(dateSort);
-    } else {
-      sortedList = [...localVideos].sort(viewSort);
+      getSortedData(`sortBy=releaseDate`);
+    } else if (event === 'View Count') {
+      getSortedData(`sortBy=viewCount`);
     }
-    setLocalVideos(sortedList);
-    setSortOption(event);
   };
 
   useEffect(() => {

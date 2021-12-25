@@ -6,7 +6,6 @@ import PreviewCard from './PreviewCard';
 
 const Dashboard = () => {
   const [localVideos, setLocalVideos] = useContext(VideoContext);
-  console.log('local Videos', localVideos);
 
   return (
     <Box sx={{ flexGrow: 1 }}>
