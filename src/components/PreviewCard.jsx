@@ -1,12 +1,5 @@
 import React from 'react';
-import {
-  Card,
-  CardHeader,
-  CardMedia,
-  CardContent,
-  Typography,
-  Avatar,
-} from '@mui/material';
+import { Card, CardHeader, CardMedia, Avatar } from '@mui/material';
 import { useHistory } from 'react-router';
 import { formatDistanceToNow } from 'date-fns';
 
@@ -28,7 +21,6 @@ function stringToColor(string) {
 }
 
 function stringAvatar(name) {
-  console.log(name);
   return {
     sx: {
       bgcolor: stringToColor(name),
@@ -45,8 +37,8 @@ const PreviewCard = ({ id, previewImage, title, releaseDate }) => {
   };
 
   return (
-    <Card elevation={0} onClick={handleClick}> 
-    {/* sx={{ mr: 2, my: 2 }} */}
+    <Card elevation={0} onClick={handleClick}>
+      {/* sx={{ mr: 2, my: 2 }} */}
       <CardMedia
         align="left"
         component="img"
@@ -56,7 +48,11 @@ const PreviewCard = ({ id, previewImage, title, releaseDate }) => {
       <CardHeader
         align="left"
         avatar={<Avatar {...stringAvatar(title)} />}
-        titleTypographyProps={{ variant: 'subtitle1', fontWeight: 'bold', noWrap: true }}
+        titleTypographyProps={{
+          variant: 'subtitle1',
+          fontWeight: 'bold',
+          noWrap: true,
+        }}
         subheader={`${formatDistanceToNow(new Date(releaseDate))} ago`}
         title={title}
       />
@@ -65,16 +61,3 @@ const PreviewCard = ({ id, previewImage, title, releaseDate }) => {
 };
 
 export default PreviewCard;
-
-{
-  /* <Typography gutterBottom variant="subtitle1" sx={{ fontWeight: 'bold' }}>
-{title}
-</Typography> */
-}
-
-{
-  /* align="left" 
-                component="div"
-                noWrap={true}
-                */
-}

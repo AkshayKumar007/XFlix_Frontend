@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Paper from '@mui/material/Paper';
 import IconButton from '@mui/material/IconButton';
 import Stack from '@mui/material/Stack';
@@ -22,15 +22,30 @@ const SearchField = styled(Paper)(({ theme }) => ({
   },
 }));
 
+function useDebounce(value, delay) {
+  const [debouncedValue, setDebouncedValue] = useState(value);
+  useEffect(() => {
+    const handler = setTimeout(() => {
+      setDebouncedValue(value);
+    }, delay);
+    return () => {
+      clearTimeout(handler);
+    };
+  }, [value, delay]);
+  return debouncedValue;
+}
+
 const Search = ({ handleSearch }) => {
-  const [searchParam, setSearchParam] = useState('');
+  const [searchText, setSearchText] = useState('');
+  const debouncedSearchTerm = useDebounce(searchText, 500);
+
   return (
     <Stack direction="row">
       <SearchField>
         <InputBase
           sx={{ ml: 1, flex: 1 }}
           placeholder="Search"
-          onChange={(event) => setSearchParam(event.target.value)}
+          onChange={(event) => setSearchText(event.target.value)}
         />
       </SearchField>
       <Paper
@@ -39,7 +54,7 @@ const Search = ({ handleSearch }) => {
       >
         <IconButton
           onClick={() => {
-            handleSearch(searchParam);
+            handleSearch(debouncedSearchTerm);
           }}
         >
           <SearchIcon />

@@ -4,6 +4,8 @@ import SwapVertIcon from '@mui/icons-material/SwapVert';
 import { styled } from '@mui/material/styles';
 
 import VideoContext from '../utils/VideoContext';
+import SearchContext from '../utils/SearchContext';
+import { config } from '../App';
 
 // Helper methods
 
@@ -31,6 +33,39 @@ const getFilters = (group) => {
     return item.color === 'primary' ? [...arr, item.label] : arr;
   }, []);
   return filters;
+};
+
+// {
+//   title: searchTerm,
+//   genres:  genreFilter,
+//   contentRating: ageFilter
+// }
+const createQueryString = (params) => {
+  let query = '';
+  for (let key in params) {
+    if (key === 'title') {
+      if (
+        params[key] !== '' &&
+        params[key] !== null &&
+        params[key] !== undefined
+      ) {
+        query += `title=${params[key]}`;
+      }
+    } else if (key === 'genres') {
+      if (params[key][0] === 'All Genre') continue;
+      if (query !== '') {
+        query += '&';
+      }
+      query += `${key}=${params[key].join(',')}`;
+    } else if (key === 'contentRating') {
+      if (params[key][0] === 'Any age group') continue;
+      if (query !== '') {
+        query += '&';
+      }
+      query += `${key}=${encodeURIComponent(params[key])}`;
+    }
+  }
+  return query;
 };
 
 const updateVideoList = (videos, genreFilter, ageFilter) => {
@@ -69,6 +104,7 @@ const Panel = ({ allVideos }) => {
   ];
 
   const [localVideos, setLocalVideos] = useContext(VideoContext);
+  const [searchTerm, setSearchTerm] = useContext(SearchContext);
 
   // useEffect(() => {
   //   setVideos(allVideos);
@@ -135,13 +171,13 @@ const Panel = ({ allVideos }) => {
     }
   };
 
-  useEffect(() => {
-    let genreFilter = getFilters(genreGroup);
-    let ageFilter = getFilters(ageGroup);
+  // useEffect(() => {
+  //   let genreFilter = getFilters(genreGroup);
+  //   let ageFilter = getFilters(ageGroup);
 
-    let newVideoList = updateVideoList(allVideos, genreFilter, ageFilter);
-    setLocalVideos(newVideoList);
-  }, [genreGroup, ageGroup]);
+  //   let newVideoList = updateVideoList(allVideos, genreFilter, ageFilter);
+  //   setLocalVideos(newVideoList);
+  // }, [genreGroup, ageGroup]);
 
   const handleSortChange = (event) => {
     let sortedList = [];
@@ -153,6 +189,38 @@ const Panel = ({ allVideos }) => {
     setLocalVideos(sortedList);
     setSortOption(event);
   };
+
+  useEffect(() => {
+    const getData = async (query) => {
+      try {
+        let response = await fetch(`${config.endpoint}/v1/videos?${query}`, {
+          method: 'GET',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+        });
+        let jsonResponse = await response.json();
+        if (!response.ok) {
+          throw new Error(jsonResponse);
+        }
+        setLocalVideos(jsonResponse.videos);
+      } catch (e) {
+        console.log(`Error in Search and Filter ${e.message}`);
+        setLocalVideos(allVideos);
+      }
+    };
+
+    let genreFilter = getFilters(genreGroup);
+    let ageFilter = getFilters(ageGroup);
+
+    let query = createQueryString({
+      title: searchTerm,
+      genres: genreFilter,
+      contentRating: ageFilter,
+    });
+
+    getData(query);
+  }, [genreGroup, ageGroup, searchTerm]);
 
   return (
     // <MyContainer sx={{ my: 25,  }} spacing={2}>
@@ -179,7 +247,7 @@ const Panel = ({ allVideos }) => {
               />
             </Grid>
           ))}
-          {/* show modal and check for which one is selected */}
+          {/* show Dialog and check for which one is selected */}
           <Grid item>
             <Fab
               variant="extended"

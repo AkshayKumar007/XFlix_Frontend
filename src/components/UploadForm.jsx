@@ -177,7 +177,6 @@ const UploadForm = ({ visibility, setVisibility }) => {
                 value={genre}
                 label="Age"
                 onChange={(event) => {
-                  console.log(event.target.value);
                   setGenre(event.target.value);
                 }}
               >
@@ -205,7 +204,6 @@ const UploadForm = ({ visibility, setVisibility }) => {
                 value={contentRating}
                 label="Genre"
                 onChange={(event) => {
-                  console.log(event.target.value);
                   setContentRating(event.target.value);
                 }}
               >

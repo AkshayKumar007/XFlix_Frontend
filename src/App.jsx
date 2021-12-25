@@ -6,8 +6,8 @@ import Home from './pages/Home';
 import Video from './pages/Video';
 import headerOptionsContext from './utils/HeaderOptionsContext';
 import VideoContext from './utils/VideoContext';
+import SearchContext from './utils/SearchContext';
 import Theme from './utils/Theme';
-import './App.css';
 
 export const config = {
   endpoint: `https://a9dbbc30-7f76-4a58-af9f-189c09f97c41.mock.pstmn.io`,
@@ -16,6 +16,7 @@ export const config = {
 const App = () => {
   const [headerOptions, setHeaderOptions] = useState(true);
   const [videos, setVideos] = useState([]);
+  const [searchTerm, setSearchTerm] = useState('');
 
   useEffect(() => {
     let errored = false;
@@ -53,20 +54,22 @@ const App = () => {
             value={[headerOptions, setHeaderOptions]}
           >
             <VideoContext.Provider value={[localVideos, setLocalVideos]}>
-              <Layout allVideos={videos}>
-                <Switch>
-                  <Route
-                    exact
-                    path="/"
-                    render={() => <Home allVideos={videos} />}
-                  />
-                  <Route
-                    exact
-                    path="/video/:videoId"
-                    render={() => <Video />}
-                  />
-                </Switch>
-              </Layout>
+              <SearchContext.Provider value={[searchTerm, setSearchTerm]}>
+                <Layout allVideos={videos}>
+                  <Switch>
+                    <Route
+                      exact
+                      path="/"
+                      render={() => <Home allVideos={videos} />}
+                    />
+                    <Route
+                      exact
+                      path="/video/:videoId"
+                      render={() => <Video />}
+                    />
+                  </Switch>
+                </Layout>
+              </SearchContext.Provider>
             </VideoContext.Provider>
           </headerOptionsContext.Provider>
         </Theme>

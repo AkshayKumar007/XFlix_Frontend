@@ -6,32 +6,21 @@ import FileUploadIcon from '@mui/icons-material/FileUpload';
 import { AppBar, CssBaseline, Toolbar, Box, Button } from '@mui/material';
 
 import headerOptionsContext from '../utils/HeaderOptionsContext';
-import VideoContext from '../utils/VideoContext';
-import { config } from '../App';
+import SearchContext from '../utils/SearchContext';
+// import VideoContext from '../utils/VideoContext';
+// import { config } from '../App';
 
 const Header = ({ visibility, setVisibility }) => {
   const [headerOptions, setHeaderOptions] = useContext(headerOptionsContext);
 
+  const [SearchTerm, setSearchTerm] = useContext(SearchContext);
+
   // use this to change local Videos based on API calls for search
-  const [localVideos, setLocalVideos] = useContext(VideoContext);
+  // const [localVideos, setLocalVideos] = useContext(VideoContext);
 
   // change local videos based on pattern
   const handleSearch = (searchParam) => {
-    const getMatchingVideos = async (searchParam) => {
-      try {
-        const response = await fetch(
-          `${config.endpoint}/v1/videos?title=${searchParam}`
-        );
-        const jsonResponse = await response.json();
-        if (!response.ok) {
-          throw new Error(jsonResponse);
-        }
-        setLocalVideos(jsonResponse.videos);
-      } catch (e) {
-        console.log(`Search Error: ${e.message}`);
-      }
-    };
-    getMatchingVideos(searchParam);
+    setSearchTerm(searchParam);
   };
 
   const handleUploadClick = () => {
@@ -94,3 +83,19 @@ const Header = ({ visibility, setVisibility }) => {
 };
 
 export default Header;
+
+// const getMatchingVideos = async (searchParam) => {
+//   try {
+//     const response = await fetch(
+//       `${config.endpoint}/v1/videos?title=${searchParam}`
+//     );
+//     const jsonResponse = await response.json();
+//     if (!response.ok) {
+//       throw new Error(jsonResponse);
+//     }
+//     setLocalVideos(jsonResponse.videos);
+//   } catch (e) {
+//     console.log(`Search Error: ${e.message}`);
+//   }
+// };
+// getMatchingVideos(searchParam);

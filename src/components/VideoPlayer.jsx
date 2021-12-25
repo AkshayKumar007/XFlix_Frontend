@@ -122,16 +122,9 @@ const VideoPlayer = ({ id }) => {
           justifyContent="center"
           alignItems="center"
           sx={{ pt: 2 }}
-          // sx={{ pr: 22 }}  pl: 20, my: 2,
           columns={{ xs: 12, sm: 12, md: 12, lg: 12 }}
         >
-          <Grid item xs={10} >
-            {/* .videoWrapper {
-            position: relative;
-            padding-bottom: 56.25%; // 16: 9
-            padding-top: 25px;
-            height: 0;
-          }*/}
+          <Grid item xs={10}>
             <MyContainer>
               <MyIFrame
                 width="100%"
@@ -140,15 +133,6 @@ const VideoPlayer = ({ id }) => {
                 src={`https://${video.videoLink}`}
               />
             </MyContainer>
-            {/* .videoWrapper iframe {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            width="100%"
-              
-          } */}
           </Grid>
         </Grid>
         <Grid sx={{ py: 4 }} container justifyContent="space-between">
@@ -223,29 +207,3 @@ const VideoPlayer = ({ id }) => {
 };
 
 export default VideoPlayer;
-
-{
-  /* <Grid item xs={4}>
-<Fab
-  variant="extended"
-  size="medium"
-  color="primary"
-  aria-label="add"
-  value="upVote"
-  onClick={() => handleVote('upvote')}
->
-  <ThumbUp sx={{ mr: 1 }} />
-  {upvotes}
-</Fab>
-<Fab
-  variant="extended"
-  size="medium"
-  color="primary"
-  aria-label="add"
-  onClick={() => handleVote('downvote')}
->
-  <ThumbDown sx={{ mr: 1 }} />
-  {downvotes}
-</Fab>
-</Grid> */
-}
