@@ -1,15 +1,11 @@
 import React, { useState, useEffect, useContext } from 'react';
-import { Chip, MenuItem, Menu, Container, Grid, Fab } from '@mui/material';
+import { Chip, MenuItem, Menu, Grid, Fab } from '@mui/material';
 import SwapVertIcon from '@mui/icons-material/SwapVert';
 import { styled } from '@mui/material/styles';
 
 import VideoContext from '../utils/VideoContext';
 
 // Helper methods
-
-const MyContainer = styled(Container)(({ theme }) => ({
-  backgroundColor: theme.palette.secondary.main,
-}));
 
 const MyGrid = styled(Grid)(({ theme }) => ({
   backgroundColor: theme.palette.secondary.main,
@@ -160,7 +156,12 @@ const Panel = ({ allVideos }) => {
 
   return (
     // <MyContainer sx={{ my: 25,  }} spacing={2}>
-    <MyGrid container justifyContent="center" direction="column" sx={{paddingTop: 2, paddingBottom: 4}}>
+    <MyGrid
+      container
+      justifyContent="center"
+      direction="column"
+      sx={{ paddingTop: 2, paddingBottom: 4 }}
+    >
       <Grid item>
         <Grid
           container
@@ -244,3 +245,7 @@ const Panel = ({ allVideos }) => {
 };
 
 export default Panel;
+
+// const MyContainer = styled(Container)(({ theme }) => ({
+//   backgroundColor: theme.palette.secondary.main,
+// }));
