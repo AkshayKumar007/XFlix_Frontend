@@ -13,21 +13,6 @@ const MyGrid = styled(Grid)(({ theme }) => ({
   backgroundColor: theme.palette.secondary.main,
 }));
 
-const viewSort = (a, b) => {
-  if (a.viewCount < b.viewCount) return 1;
-  else if (a.viewCount > b.viewCount) return -1;
-  return 0;
-};
-
-const dateSort = (a, b) => {
-  let d1 = new Date(a.releaseDate);
-  let d2 = new Date(b.releaseDate);
-
-  if (d1 < d2) return 1;
-  else if (d1 > d2) return -1;
-  return 0;
-};
-
 const getFilters = (group) => {
   let filters = group.reduce((arr, item) => {
     return item.color === 'primary' ? [...arr, item.label] : arr;
@@ -66,33 +51,6 @@ const createQueryString = (params) => {
     }
   }
   return query;
-};
-
-const updateVideoList = (videos, genreFilter, ageFilter) => {
-  let newVideoList = [];
-  if (genreFilter[0] === 'All Genre') {
-    newVideoList = videos.map((item) => {
-      return JSON.parse(JSON.stringify(item));
-    });
-  } else {
-    newVideoList = videos.filter((item) => {
-      if (genreFilter.includes(item.genre))
-        return JSON.parse(JSON.stringify(item));
-    });
-  }
-
-  if (ageFilter[0] === 'Any age group') {
-    newVideoList = newVideoList.map((item) => {
-      return JSON.parse(JSON.stringify(item));
-    });
-  } else {
-    newVideoList = newVideoList.filter((item) => {
-      if (ageFilter.includes(item.contentRating))
-        return JSON.parse(JSON.stringify(item));
-    });
-  }
-
-  return newVideoList;
 };
 
 // Component
@@ -194,7 +152,7 @@ const Panel = ({ allVideos }) => {
       { label: 'Sports', color: 'secondary', key: 2 },
       { label: 'Comedy', color: 'secondary', key: 3 },
       { label: 'Lifestyle', color: 'secondary', key: 4 },
-      { label: 'Movies', color: 'secondary', key: 5 },
+      // { label: 'Movies', color: 'secondary', key: 5 },
     ]);
 
     setSearchTerm('');
@@ -220,8 +178,10 @@ const Panel = ({ allVideos }) => {
 
     if (event === 'Release Date') {
       getSortedData(`sortBy=releaseDate`);
+      setSortOption(criteria[0].label);
     } else if (event === 'View Count') {
       getSortedData(`sortBy=viewCount`);
+      setSortOption(criteria[1].label);
     }
   };
 
@@ -278,6 +238,7 @@ const Panel = ({ allVideos }) => {
               <Chip
                 color={color}
                 label={label}
+                className="genre-btn"
                 onClick={() => handleFilterClick(genreGroup, label)}
               />
             </Grid>
@@ -289,6 +250,7 @@ const Panel = ({ allVideos }) => {
               size="medium"
               color="primary"
               sx={{ boxShadow: 0 }}
+              className="sort-select"
               onClick={(event) => {
                 setAnchorEl(event.currentTarget);
                 setOpen(!open);
@@ -309,12 +271,14 @@ const Panel = ({ allVideos }) => {
               <MenuItem
                 onClick={() => handleSortChange(criteria[0].label)}
                 value={criteria[0].label}
+                id="release-date-option"
               >
                 {criteria[0].label}
               </MenuItem>
               <MenuItem
                 onClick={() => handleSortChange(criteria[1].label)}
                 value={criteria[1].label}
+                id="view-count-option"
               >
                 {criteria[1].label}
               </MenuItem>
@@ -336,6 +300,7 @@ const Panel = ({ allVideos }) => {
               <Chip
                 label={label}
                 color={color}
+                className="content-rating-btn"
                 onClick={() => handleFilterClick(ageGroup, label)}
               />{' '}
             </Grid>
